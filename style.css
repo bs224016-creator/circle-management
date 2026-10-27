@@ -687,3 +687,9 @@ label {
     overflow-x: hidden;
   }
 }
+
+/* Audition and feedback */
+.audition-card,.audition-criterion-row{padding:14px;margin:12px 0;background:#f7faf8;border:1px solid #dce7df;border-radius:10px;overflow-wrap:anywhere}
+.audition-card h3{margin-top:0}
+#audition-form textarea,#audition-score-form textarea{display:block;width:100%;font:inherit;padding:10px;margin:8px 0 14px;border:1px solid #cad2d8;border-radius:7px;resize:vertical}
+#audition-form label,#audition-score-form label{display:block;margin-top:10px}

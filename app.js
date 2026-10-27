@@ -34,7 +34,13 @@ const PAGE_IDS = [
   "band-leave-section",
   "band-detail-section",
   "profile-section",
-  "admin-section"
+  "admin-section",
+  "audition-section",
+  "audition-create-section",
+  "audition-detail-section",
+  "audition-score-section",
+  "feedback-section",
+  "feedback-detail-section"
 ];
 
 let currentAuthUser = null;
