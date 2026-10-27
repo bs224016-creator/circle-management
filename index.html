@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>軽音サークル管理</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>軽音サークル管理</h1>
+
+    <!-- ログイン・新規登録 -->
+    <section id="auth-section">
+      <form id="auth-form">
+        <input id="username"
+          placeholder="ユーザー名（新規登録時）"
+          autocomplete="nickname">
+
+        <input id="email"
+          type="email"
+          placeholder="メールアドレス"
+          autocomplete="email"
+          required>
+
+        <input id="password"
+          type="password"
+          placeholder="パスワード"
+          autocomplete="current-password"
+          minlength="8"
+          required>
+
+        <button type="submit" id="login-button">
+          ログイン
+        </button>
+
+        <button type="button" id="signup-button">
+          新規登録
+        </button>
+      </form>
+    </section>
+
+    <!-- ホーム -->
+    <section id="home-section" hidden>
+      <h2>ホーム</h2>
+      <p id="welcome"></p>
+
+      <div class="home-menu">
+        <button id="open-schedule-button" type="button">
+          MYスケジュール
+        </button>
+
+        <button id="open-band-button" type="button">
+          BANDスケジュール
+        </button>
+
+        <button id="open-profile-button" type="button">
+          プロフィール
+        </button>
+
+        <button id="open-admin-button" type="button" hidden>
+          管理者ツール
+        </button>
+      </div>
+
+      <button id="logout-button"
+        type="button"
+        class="secondary-button">
+        ログアウト
+      </button>
+    </section>
+
+    <!-- MYスケジュール -->
+    <section id="schedule-section" hidden>
+      <button id="back-home-button"
+        type="button"
+        class="secondary-button">
+        ← ホームに戻る
+      </button>
+
+      <h2>MYスケジュール</h2>
+      <p>バンド練習に参加できる時間帯を選択してください。</p>
+
+      <form id="date-range-form">
+        <div class="date-range">
+          <label>
+            開始日
+            <input type="date" id="start-date" required>
+          </label>
+
+          <label>
+            終了日
+            <input type="date" id="end-date" required>
+          </label>
+        </div>
+
+        <button type="submit" id="show-schedule-button">
+          表示
+        </button>
+      </form>
+
+      <div id="schedule-results" hidden>
+        <p id="selected-range"></p>
+        <p class="schedule-help">マスをタップ：－ ↔ 〇</p>
+
+        <div class="schedule-container">
+          <table id="schedule-table">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <p id="schedule-message" role="status"></p>
+    </section>
+
+    <!-- BANDスケジュール -->
+    <section id="band-section" hidden>
+      <button id="band-back-home"
+        type="button"
+        class="secondary-button">
+        ← ホームに戻る
+      </button>
+
+      <h2>BANDスケジュール</h2>
+      <p>所属しているバンド</p>
+
+      <div id="band-list" class="band-list"></div>
+
+      <button id="open-create-band" type="button">
+        ＋ 新規バンド作成
+      </button>
+
+      <button id="open-leave-band"
+        type="button"
+        class="secondary-button">
+        バンド脱退
+      </button>
+
+      <p id="band-list-message" role="status"></p>
+    </section>
+
+    <!-- バンド作成 -->
+    <section id="band-create-section" hidden>
+      <button id="create-back-band"
+        type="button"
+        class="secondary-button">
+        ← バンド一覧に戻る
+      </button>
+
+      <h2>新規バンド作成</h2>
+
+      <form id="create-band-form">
+        <label>
+          バンド名
+          <input id="band-name"
+            type="text"
+            maxlength="100"
+            required
+            placeholder="バンド名を入力">
+        </label>
+
+        <label>
+          バンドアイコン（任意）
+          <input id="band-icon"
+            type="file"
+            accept="image/jpeg,image/png,image/webp">
+        </label>
+
+        <img id="band-icon-preview"
+          class="icon-preview"
+          alt="選択したバンドアイコン"
+          hidden>
+
+        <h3>メンバーを選択</h3>
+        <p class="hint">
+          作成者は自動的に加入します。
+          選択した人も自動加入します。
+        </p>
+
+        <div id="create-member-list" class="member-list"></div>
+
+        <button id="create-band-submit" type="submit">
+          バンドを作成
+        </button>
+      </form>
+
+      <p id="create-band-message" role="status"></p>
+    </section>
+
+    <!-- バンド脱退 -->
+    <section id="band-leave-section" hidden>
+      <button id="leave-back-band"
+        type="button"
+        class="secondary-button">
+        ← バンド一覧に戻る
+      </button>
+
+      <h2>バンド脱退</h2>
+      <p>脱退するバンドを選択してください。</p>
+
+      <form id="leave-band-form">
+        <div id="leave-band-options" class="member-list"></div>
+
+        <button id="leave-band-submit"
+          type="submit"
+          class="danger-button">
+          選択したバンドを脱退
+        </button>
+      </form>
+
+      <p id="leave-band-message" role="status"></p>
+    </section>
+
+    <!-- バンド詳細 -->
+    <section id="band-detail-section" hidden>
+      <button id="detail-back-band"
+        type="button"
+        class="secondary-button">
+        ← バンド一覧に戻る
+      </button>
+
+      <div class="band-detail-heading">
+        <img id="detail-band-icon"
+          class="band-icon"
+          alt="バンドアイコン"
+          hidden>
+
+        <h2 id="detail-band-name"></h2>
+      </div>
+
+      <h3>すり合わせ対象メンバー</h3>
+
+      <div id="detail-member-list" class="member-list"></div>
+
+      <button id="apply-band-members" type="button">
+        このメンバーですり合わせ
+      </button>
+
+      <h3>表示期間</h3>
+
+      <form id="band-date-form">
+        <div class="date-range">
+          <label>
+            開始日
+            <input id="band-start-date" type="date" required>
+          </label>
+
+          <label>
+            終了日
+            <input id="band-end-date" type="date" required>
+          </label>
+        </div>
+
+        <button type="submit" class="secondary-button">
+          期間を表示
+        </button>
+      </form>
+
+      <p id="band-detail-message" role="status"></p>
+
+      <div id="band-schedule-results" hidden>
+        <p id="band-selected-range"></p>
+        <p id="band-member-count" class="hint"></p>
+
+        <div class="schedule-container">
+          <table id="band-schedule-table">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- プロフィール -->
+    <section id="profile-section" hidden>
+      <button id="profile-back-home"
+        type="button"
+        class="secondary-button">
+        ← ホームに戻る
+      </button>
+
+      <h2>プロフィール</h2>
+
+      <p>
+        所属区分：
+        <strong id="profile-status"></strong>
+      </p>
+
+      <p>
+        権限：
+        <strong id="profile-privileges"></strong>
+      </p>
+
+      <div id="profile-roles-box">
+        <h3>サークル内の役職</h3>
+        <div id="profile-roles" aria-live="polite"></div>
+      </div>
+
+      <form id="profile-form">
+        <label>
+          ユーザー名
+          <input id="profile-name"
+            type="text"
+            maxlength="60"
+            required>
+        </label>
+
+        <label>
+          入学年度（西暦）
+          <input id="profile-year"
+            type="number"
+            min="1950"
+            max="2100"
+            placeholder="例：2026">
+        </label>
+
+        <p id="profile-year-current" class="hint"></p>
+
+        <button type="submit">
+          プロフィールを保存
+        </button>
+      </form>
+
+      <div id="profile-request-box" hidden>
+        <h3>入学年度の変更申請</h3>
+
+        <p class="hint">
+          登録済みの入学年度を変更するには、
+          部長またはサイト管理者の承認が必要です。
+        </p>
+
+        <form id="profile-request-form">
+          <label>
+            変更後の入学年度
+            <input id="profile-request-year"
+              type="number"
+              min="1950"
+              max="2100"
+              required>
+          </label>
+
+          <button type="submit">
+            変更を申請
+          </button>
+        </form>
+
+        <p id="profile-pending"></p>
+      </div>
+
+      <div id="profile-transfer-box" hidden>
+        <h3>部長引き継ぎの依頼</h3>
+        <p>あなたが次の部長に指定されています。</p>
+
+        <button id="accept-transfer" type="button">
+          部長の引き継ぎを承認
+        </button>
+      </div>
+
+      <p id="profile-message" role="status"></p>
+    </section>
+
+    <!-- 管理者ツール -->
+    <section id="admin-section" hidden>
+      <button id="admin-back-home"
+        type="button"
+        class="secondary-button">
+        ← ホームに戻る
+      </button>
+
+      <h2>管理者ツール</h2>
+
+      <!-- 入学年度変更申請 -->
+      <div id="admin-year-area">
+        <h3>入学年度の変更申請</h3>
+        <div id="admin-requests"></div>
+      </div>
+
+      <!-- 役職管理 -->
+      <div id="admin-role-area" hidden>
+        <h3>役職の作成・編集</h3>
+
+        <form id="role-form">
+          <input id="role-id" type="hidden">
+
+          <label>
+            役職名
+            <input id="role-name"
+              type="text"
+              maxlength="60"
+              placeholder="例：会計"
+              required>
+          </label>
+
+          <label class="member-option">
+            <input id="role-exclude" type="checkbox">
+            <span>係の自動割り当て対象外にする</span>
+          </label>
+
+          <button type="submit">
+            役職を保存
+          </button>
+
+          <button id="role-reset"
+            type="button"
+            class="secondary-button">
+            入力をクリア
+          </button>
+        </form>
+
+        <div id="admin-roles"></div>
+      </div>
+
+      <!-- 部員管理 -->
+      <h3>部員一覧・役職割り当て</h3>
+
+      <label>
+        部員を選択
+        <select id="admin-member"></select>
+      </label>
+
+      <div id="admin-member-list"></div>
+
+      <!-- 部長引き継ぎ -->
+      <div id="admin-president-area" hidden>
+        <h3>部長の引き継ぎ</h3>
+
+        <p class="hint">
+          新しい部長が承認すると、
+          部長権限が引き継がれます。
+        </p>
+
+        <label>
+          次の部長
+          <select id="admin-transfer-user"></select>
+        </label>
+
+        <button id="admin-transfer" type="button">
+          部長の引き継ぎを申請
+        </button>
+      </div>
+
+      <!-- サイト管理者 -->
+      <div id="admin-site-area" hidden>
+        <h3>サイト管理者の設定</h3>
+
+        <label>
+          サイト管理者に追加する部員
+          <select id="admin-site-user"></select>
+        </label>
+
+        <button id="admin-site-add" type="button">
+          サイト管理者に追加
+        </button>
+
+        <div id="admin-site-list"></div>
+
+        <h3>部長権限の復旧</h3>
+
+        <p class="hint">
+          部長が操作できなくなった場合などに、
+          サイト管理者が部長を再設定できます。
+        </p>
+
+        <label>
+          部長に設定する部員
+          <select id="admin-recover-user"></select>
+        </label>
+
+        <button id="admin-recover"
+          type="button"
+          class="danger-button">
+          部長を再設定
+        </button>
+      </div>
+
+      <p id="admin-message" role="status"></p>
+    </section>
+
+    <p id="message" role="status"></p>
+  </main>
+
+  <!-- JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+  <script src="schedule.js"></script>
+  <script src="band.js"></script>
+  <script src="profile.js"></script>
+  <script src="profile-roles.js"></script>
+</body>
+</html>

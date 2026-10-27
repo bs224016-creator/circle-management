@@ -1,0 +1,689 @@
+/* ==========================================
+   基本デザイン
+========================================== */
+
+:root {
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #202936;
+  background: #f3f5f7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 22px 12px 45px;
+}
+
+main {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 3px 20px #1b2d4410;
+}
+
+h1 {
+  font-size: 1.35rem;
+  margin: 0 0 24px;
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin: 14px 0;
+}
+
+h3 {
+  font-size: 1rem;
+  margin: 20px 0 10px;
+}
+
+p {
+  line-height: 1.5;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* ==========================================
+   ボタン・入力欄
+========================================== */
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 8px;
+  background: #27845e;
+  color: white;
+  padding: 12px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  filter: brightness(.95);
+}
+
+button:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
+.secondary-button {
+  background: #e8edf0;
+  color: #243647;
+}
+
+.danger-button {
+  background: #b72e3c;
+}
+
+input:not([type="checkbox"]):not([type="radio"]),
+input[type="file"],
+select {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0 14px;
+  border: 1px solid #cad2d8;
+  border-radius: 7px;
+  background: white;
+  min-width: 0;
+}
+
+input:disabled {
+  background: #f1f3f5 !important;
+  color: #657181;
+  cursor: not-allowed;
+}
+
+input:focus,
+select:focus,
+button:focus-visible {
+  outline: 2px solid #27845e;
+  outline-offset: 2px;
+}
+
+label {
+  font-size: .94rem;
+}
+
+/* ==========================================
+   ホーム画面
+========================================== */
+
+.home-menu {
+  display: grid;
+  gap: 6px;
+}
+
+.home-menu button {
+  margin: 4px 0;
+  min-height: 48px;
+}
+
+/* ==========================================
+   共通テキスト
+========================================== */
+
+.hint,
+.schedule-help {
+  color: #627083;
+  font-size: .85rem;
+}
+
+#message,
+[id$="-message"] {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   MYスケジュール・BANDスケジュール
+========================================== */
+
+.date-range {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.date-range input {
+  font-size: .88rem;
+}
+
+.schedule-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+#schedule-table,
+#band-schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+#schedule-table th,
+#schedule-table td,
+#band-schedule-table th,
+#band-schedule-table td {
+  padding: 4px 1px;
+  border: 1px solid #e3e7eb;
+  text-align: center;
+  font-size: 11px;
+}
+
+#schedule-table th:first-child,
+#schedule-table td:first-child,
+#band-schedule-table th:first-child,
+#band-schedule-table td:first-child {
+  width: 19%;
+}
+
+#schedule-table th,
+#band-schedule-table th {
+  background: #f1f4f6;
+  font-weight: 650;
+}
+
+.slot-button {
+  width: 100%;
+  min-height: 32px;
+  padding: 4px 0;
+  margin: 0;
+  border-radius: 4px;
+  background: #eef0f3;
+  color: #3c4652;
+  font-size: 13px;
+}
+
+.slot-button.yes {
+  background: #27845e;
+  color: white;
+}
+
+/* ==========================================
+   バンド一覧
+========================================== */
+
+.band-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 12px 0 20px;
+}
+
+.band-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-height: 126px;
+  padding: 12px;
+  background: #f1f6f4;
+  color: #243647;
+  border: 1px solid #dae6e0;
+  overflow-wrap: anywhere;
+}
+
+.band-icon {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 10px;
+  background: #e6e9ed;
+}
+
+.band-icon-placeholder {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #e2eee8;
+  font-size: 32px;
+}
+
+.band-detail-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.member-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.member-option {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  padding: 9px 7px;
+  border: 1px solid #e0e5e9;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+
+.member-option input {
+  width: auto;
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.icon-preview {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.availability-cell {
+  font-weight: 700;
+  font-size: 13px !important;
+  height: 36px;
+}
+
+/* ==========================================
+   プロフィール画面
+========================================== */
+
+#profile-section > p {
+  margin: 10px 0;
+}
+
+#profile-status,
+#profile-privileges {
+  color: #27845e;
+}
+
+#profile-form {
+  margin-top: 20px;
+}
+
+#profile-year-current {
+  padding: 10px 12px;
+  background: #f1f6f4;
+  border-radius: 8px;
+}
+
+#profile-request-box,
+#profile-transfer-box {
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1px solid #e3e7eb;
+}
+
+#profile-pending {
+  color: #946200;
+  font-weight: 600;
+}
+
+#profile-message {
+  margin-top: 16px;
+}
+
+/* ==========================================
+   管理者画面
+========================================== */
+
+#admin-section > h3,
+#admin-role-area > h3,
+#admin-president-area > h3,
+#admin-site-area > h3 {
+  margin-top: 28px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e3e7eb;
+}
+
+#admin-year-area,
+#admin-role-area,
+#admin-president-area,
+#admin-site-area {
+  margin-bottom: 24px;
+}
+
+.admin-card {
+  padding: 14px;
+  margin: 12px 0;
+  border: 1px solid #dce5e0;
+  border-radius: 10px;
+  background: #fafcfb;
+  overflow-wrap: anywhere;
+}
+
+.admin-card h3 {
+  margin-top: 0;
+}
+
+.admin-card p {
+  margin: 8px 0;
+}
+
+.admin-card strong {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.admin-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.admin-actions button {
+  margin: 4px 0;
+}
+
+#admin-roles {
+  margin-top: 18px;
+}
+
+#admin-member-list {
+  margin-top: 16px;
+}
+
+#admin-member-list .member-option {
+  margin: 8px 0;
+}
+
+#admin-site-list {
+  margin-top: 16px;
+}
+
+#admin-message {
+  margin-top: 20px;
+  padding: 10px 0;
+}
+
+/* ==========================================
+   スマートフォン対応
+========================================== */
+
+@media (max-width: 420px) {
+  body {
+    padding: 10px 6px 30px;
+  }
+
+  main {
+    padding: 14px 10px;
+    border-radius: 10px;
+  }
+
+  h1 {
+    font-size: 1.25rem;
+  }
+
+  #schedule-table th,
+  #schedule-table td,
+  #band-schedule-table th,
+  #band-schedule-table td {
+    font-size: 9px;
+    padding: 3px 0;
+  }
+
+  .availability-cell {
+    font-size: 12px !important;
+  }
+
+  .slot-button {
+    font-size: 12px;
+    min-height: 30px;
+  }
+
+  .date-range {
+    gap: 6px;
+  }
+
+  .date-range input {
+    font-size: 12px;
+    padding: 8px 3px;
+  }
+
+  .member-list {
+    gap: 6px;
+  }
+
+  .member-option {
+    padding: 8px 5px;
+    font-size: .85rem;
+  }
+
+  .admin-card {
+    padding: 10px;
+  }
+
+  .admin-actions {
+    gap: 6px;
+  }
+
+  .admin-actions button {
+    padding: 10px 4px;
+    font-size: .9rem;
+  }
+}
+/* ==========================================
+   MYスケジュール：縦型8時間帯
+========================================== */
+
+#schedule-section .schedule-container {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+}
+
+#schedule-table {
+  width: 100%;
+  min-width: 780px;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+#schedule-table th,
+#schedule-table td {
+  padding: 5px 3px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+#schedule-table th:first-child,
+#schedule-table td:first-child {
+  width: 100px;
+}
+
+#schedule-table thead th {
+  background: #e9f1ec;
+  font-size: 11px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+#schedule-table .slot-button {
+  width: 100%;
+  min-height: 36px;
+  margin: 0;
+  padding: 5px 0;
+  font-size: 15px;
+}
+
+#schedule-table tbody tr:nth-child(even) {
+  background: #f8faf9;
+}
+
+/* プロフィールの役職表示 */
+
+#profile-roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 20px;
+}
+
+.profile-role-tag {
+  display: inline-block;
+  padding: 7px 12px;
+  background: #e2eee8;
+  color: #206344;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+@media (max-width: 420px) {
+  #schedule-table {
+    min-width: 780px;
+  }
+
+  #schedule-table th,
+  #schedule-table td {
+    font-size: 11px;
+    padding: 4px 2px;
+  }
+
+  #schedule-table .slot-button {
+    min-height: 34px;
+    font-size: 14px;
+  }
+}
+/* プロフィールの役職表示 */
+
+#profile-roles-box {
+  margin: 20px 0;
+}
+
+#profile-roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.profile-role-tag {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 20px;
+  background-color: #e2eee8;
+  color: #206344;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* =========================================
+   スマホ向けスケジュール表示
+========================================= */
+
+@media screen and (max-width: 600px) {
+
+  /* 画面幅からはみ出さないようにする */
+  #schedule-section,
+  #band-detail-section {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  #schedule-section *,
+  #band-detail-section * {
+    box-sizing: border-box;
+  }
+
+  /* 開始日・終了日の入力フォーム */
+  #date-range-form,
+  #band-date-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 8px;
+    width: 100%;
+    align-items: end;
+  }
+
+  #date-range-form input[type="date"],
+  #band-date-form input[type="date"] {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    font-size: 12px;
+    padding: 7px 2px;
+  }
+
+  /* フォーム内のボタンは横幅いっぱいに */
+  #date-range-form button,
+  #band-date-form button {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  /* 表を画面幅に合わせる */
+  #schedule-table,
+  #band-schedule-table {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+
+  /* 日付列を少し広めにする */
+  #schedule-table th:first-child,
+  #schedule-table td:first-child,
+  #band-schedule-table th:first-child,
+  #band-schedule-table td:first-child {
+    width: 17%;
+  }
+
+  /* 各セルをコンパクトに */
+  #schedule-table th,
+  #schedule-table td,
+  #band-schedule-table th,
+  #band-schedule-table td {
+    min-width: 0 !important;
+    padding: 4px 1px !important;
+    font-size: 9px !important;
+    text-align: center;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+  }
+
+  /* MYスケジュールの〇・×ボタン */
+  #schedule-table button {
+    width: 100%;
+    min-width: 0;
+    min-height: 28px;
+    padding: 3px 0;
+    font-size: 11px;
+  }
+
+  /* BANDスケジュールの人数表示 */
+  #band-schedule-table .availability-cell {
+    font-size: 9px !important;
+    font-weight: bold;
+  }
+
+  /* 表の外側で横スクロールしない */
+  #schedule-results,
+  #band-schedule-results {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+}
